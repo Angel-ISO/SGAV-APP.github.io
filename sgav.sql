@@ -47,3 +47,29 @@ CREATE TABLE houseType(
    
 );
 
+CREATE TABLE living_place(
+
+
+id_living INTEGER AUTO_INCREMENT,
+id_person VARCHAR (20) NOT NULL,
+id_city INTEGER NOT NULL,
+rooms_living INTEGER NOT NULL,
+bathrooms_living INTEGER NOT NULL,
+kitchen_living INTEGER NOT NULL,
+tv_room INTEGER NOT NULL,
+patio_livin INTEGER NOT NULL,
+pool_living INTEGER NOT NULL,
+barbecue_living INTEGER NOT NULL,
+image_living VARCHAR(60),
+id_type_house INTEGER,
+
+ CONSTRAINT pk_id_living PRIMARY KEY (id_living),
+    CONSTRAINT fk_id_person FOREIGN KEY (id_person) REFERENCES persons(id_person),
+    CONSTRAINT fk_id_city FOREIGN KEY (id_city) REFERENCES cities(id_city),
+    CONSTRAINT fk_id_typehouse FOREIGN KEY (id_typehouse) REFERENCES housetype(id_typehouse)
+
+);
+
+
+
+
