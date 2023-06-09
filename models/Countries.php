@@ -5,6 +5,7 @@
         protected static $columnsTbl=['id_country','name_country'];
         private $id_country;
         private $name_country;
+        
         public function __construct($args = []){
             $this->id_country = $args['id_country'] ?? '';
             $this->name_country = $args['name_country'] ?? '';
@@ -22,6 +23,15 @@
             $sql = "SELECT id_country,name_country FROM Countries";
             $stmt= self::$conn->prepare($sql);
             //$stmt->setFetchMode(\PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $clientes = $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $clientes;
+        }
+        public function loadDataById($id){
+            $sql = "SELECT id_country,name_country, FROM Countries where id_country = :id_country" ;
+            $stmt= self::$conn->prepare($sql);
+            //$stmt->setFetchMode(\PDO::FETCH_ASSOC);
+            $stmt->bindparam("id_country", $id, \PDO::PARAM_INT);
             $stmt->execute();
             $clientes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $clientes;

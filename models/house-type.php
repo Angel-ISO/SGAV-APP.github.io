@@ -1,15 +1,15 @@
 <?php
     namespace Models;
-    class Cities{
+    class HouseType{
         protected static $conn;
         protected static $columnsTbl=['id_city','name_city','id_region'];
-        private $id_country;
-        private $name_country;
+        private $id_city;
+        private $name_city;
         
         private $id_region;
         public function __construct($args = []){
-            $this->id_country = $args['id_city'] ?? '';
-            $this->name_country = $args['name_city'] ?? '';
+            $this->id_city = $args['id_city'] ?? '';
+            $this->name_city = $args['name_city'] ?? '';
             $this->id_region = $args['id_region'] ?? '';
         }
         public function saveData($data){
@@ -22,9 +22,18 @@
             $stmt->execute($data);
         }
         public function loadAllData(){
-            $sql = "SELECT id_country,name_country FROM Countries";
+            $sql = "SELECT id_city,name_city,id_region FROM Cities";
             $stmt= self::$conn->prepare($sql);
             //$stmt->setFetchMode(\PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $clientes = $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $clientes;
+        }
+        public function loadDataById($id){
+            $sql = "SELECT id_city,name_city,id_region FROM Cities where id_city = :id_city" ;
+            $stmt= self::$conn->prepare($sql);
+            //$stmt->setFetchMode(\PDO::FETCH_ASSOC);
+            $stmt->bindparam("id_City", $id, \PDO::PARAM_INT);
             $stmt->execute();
             $clientes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $clientes;
